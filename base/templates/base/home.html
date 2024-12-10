@@ -9,8 +9,13 @@
         <!-- looping through roos dictionary or db stuff and creating code blocks also notice we are wrappoing in links-->
         {% for room in rooms %}
             <div>
+                <span>@{{room.host.username}}</span>
                 <h5>{{ room.id }} --  <a href="/room/{{room.id}}"> {{ room.name }} </a></h5>
+            <small>Topic name: {{room.topic.name}}</small>
+            <br>
             </div>
+            <hr>
+
         {% endfor %}
     </div>
 
