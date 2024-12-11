@@ -6,12 +6,29 @@
 <h1>Home Page cuntsssss</h1>
 
     <div>
+        <div>
+            <h3>
+               <a href="{% url 'create-room' %}"><h3> Create Room</h3></a>
+            </h3>
+        </div>
+        <br>
         <!-- looping through roos dictionary or db stuff and creating code blocks also notice we are wrappoing in links-->
         {% for room in rooms %}
             <div>
                 <span>@{{room.host.username}}</span>
-                <h5>{{ room.id }} --  <a href="/room/{{room.id}}"> {{ room.name }} </a></h5>
+                <a href="{% url 'update-room' room.id %}">
+                    <span>EDIT</span>
+                </a>
+                <br>
+                <a href="{% url 'delete-room' room.id %}">
+                    <span>DELETE</span>
+                </a>
+
+                <h5>{{ room.id }} --  <a href="{% url 'room' room.id %}"> {{ room.name }} </a></h5>
             <small>Topic name: {{room.topic.name}}</small>
+            <h5>{{room.description}}</h5>
+            <h4>created:{{room.created}}</h4>
+            <h6>Last updated:{{room.updated}}</h6>
             <br>
             </div>
             <hr>
