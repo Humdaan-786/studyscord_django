@@ -1,12 +1,31 @@
 {% extends 'main.html' %}
 
 {% block content %}
-<div>
-    <form method="POST" action="">
-        {% csrf_token %}
-        {{form.as_p}}
+    <div class="container mt-5">
+        <!-- Page Heading with Greenish Color -->
+        <h1 class="text-center" style="color: #418b73; background-color: #c3e9c8; padding: 20px; border-radius: 8px;">
+            Create a New Post
+        </h1>
         
-        <input type="submit" value="Submit" />
-    </form>
-</div>
+        <!-- Description for Form Page -->
+        <div class="mt-4">
+            <p style="font-size: 18px; line-height: 1.6; color: #555;">
+                <strong>Welcome to the Create Room Page!</strong> Here you can create a new room where you can manage study topics and collaborate with peers. Simply fill out the form below to set up your new study room.
+            </p>
+        </div>
+
+        <!-- Form Section -->
+        <div class="mt-4">
+            <form method="POST" action="" style="background-color: #f7f7f7; padding: 30px; border-radius: 8px; box-shadow: 0 4px 6px rgba(0,0,0,0.1);">
+                <!-- for secure session and XSS attack protection     -->
+                {% csrf_token %}
+                <!-- render all form elemnts -->
+                {{form.as_p}}
+        
+                <div>
+                    <input type="submit" value="Confirm" class="btn" style="background-color: #ff6f61; color: #fff; border-radius: 5px; padding: 10px 20px; font-size: 16px; margin-top: 15px;"/>
+                </div>
+            </form>
+        </div>
+    </div>
 {% endblock content %}

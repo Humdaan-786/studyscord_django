@@ -1,40 +1,85 @@
 {% extends 'main.html' %}
 
 {% block content %}
+    <div class="container mt-5">
+         <!-- Home Page Heading   -->
+         <h1 class="text-center" style="color: #418b73; background-color: #c3e9c8; padding: 20px; border-radius: 8px;">
+            About this application
+        </h1>
+        
+        <!-- Description abput this website and tech used and implemented -->
+        <div class="mt-4">
+            <p style="font-size: 18px; line-height: 1.6; color: #555;">
+                <strong>Welcome to StudyScord!</strong> I created this platform to explore the powerful <strong>Django</strong> framework, specifically its <strong>Model-View-Template (MVT)</strong> architecture. The primary goal was to build a dynamic, easy-to-use web application that simplifies the creation and management of study rooms, topics, and messages. Django’s MVT architecture makes it straightforward to implement clean, efficient, and scalable web applications.
+            </p>
+            <p style="font-size: 18px; line-height: 1.6; color: #555;">
+                At the heart of this project, you’ll find Django's <strong>MVT (Model-View-Template)</strong> architecture. The <strong>Model</strong> defines the structure of the data, such as rooms, topics, and messages. The <strong>View</strong> handles user interaction, displaying the data and updating it based on user actions. Finally, the <strong>Template</strong> provides a clean interface for users to interact with the system. This separation of concerns is what makes Django’s architecture so powerful and easy to scale.
+            </p>
+            <p style="font-size: 18px; line-height: 1.6; color: #555;">
+                This platform is designed with full <strong>CRUD</strong> functionality, allowing users to <strong>create, read, update, and delete</strong> rooms, messages, and topics seamlessly. With each of these operations interacting with the Django ORM (Object-Relational Mapping), it’s easy to manage the data behind the scenes. The application makes it simple to handle various dynamic actions while ensuring that data is safely and efficiently stored and retrieved.
+            </p>
+           
+            <p style="font-size: 18px; line-height: 1.6; color: #555;">
+                Overall, this project aims to provide a platform where users can easily manage study rooms, topics, and collaborate with peers. Django’s simplicity in handling both frontend and backend operations, along with its robust authentication system, makes this platform secure, scalable, and user-friendly. Whether you're a beginner exploring Django’s MVT architecture or an advanced user collaborating with others, this platform is designed to meet your needs.
+            </p>
+        </div> 
+        <!-- Create Room Section -->
 
+        <!-- to hyperlink to room's page use href with passing arguments  -->
 
-<h1>Home Page cuntsssss</h1>
-
-    <div>
-        <div>
-            <h3>
-               <a href="{% url 'create-room' %}"><h3> Create Room</h3></a>
-            </h3>
+        <div class="text-center mb-4" style="background-color: #D4EDDA; padding: 20px; border-radius: 8px;">
+            <a href="{% url 'create-room' %}" class="btn" style="background-color: #418b73; color: #FFF; border-radius: 5px; padding: 10px 20px; text-decoration: none;">
+                Create Post
+            </a>
         </div>
-        <br>
-        <!-- looping through roos dictionary or db stuff and creating code blocks also notice we are wrappoing in links-->
+        <!-- Loop through rooms -->
+
+
+
+
+        <!-- injecting mutliple list items as html components below is frmework for that -->
+
         {% for room in rooms %}
-            <div>
-                <span>@{{room.host.username}}</span>
-                <a href="{% url 'update-room' room.id %}">
-                    <span>EDIT</span>
-                </a>
-                <br>
-                <a href="{% url 'delete-room' room.id %}">
-                    <span>DELETE</span>
-                </a>
+        <div class="card mb-4" style="background-color: #dbefdc">
+                <div class="card-body " >
+                    <!-- Room details -->
+                    <h5 class="card-title">
+                        <a href="{% url 'room' room.id %}" class="text-decoration-none">{{ room.name }}</a>
+                    </h5>
+                    <p class="card-text">   
+                        
+                        <!-- showing only 100 characters of description and adding string using simple if else -->
+                        <!-- other similar methods are: room.name|slice:":30"|join: -->
+                        {% if room.description|length > 30 %}
+                            {{ room.description|slice:":100" }}...
+                        {% else %}
+                            {{ room.description  }}
+                        {% endif %}
+                    </p>
 
-                <h5>{{ room.id }} --  <a href="{% url 'room' room.id %}"> {{ room.name }} </a></h5>
-            <small>Topic name: {{room.topic.name}}</small>
-            <h5>{{room.description}}</h5>
-            <h4>created:{{room.created}}</h4>
-            <h6>Last updated:{{room.updated}}</h6>
-            <br>
+                    <!-- Host info -->
+                    <p class="card-text"><small class="text-muted">Topic: {{ room.topic.name }}</small></p>
+                    <p class="card-text"><small class="text-muted">Created: {{ room.created }} | Last updated: {{ room.updated }}</small></p>
+
+                    <!-- Host username with @user -->
+                    <p class="card-text">
+                        <strong>@{{ room.host.username }}</strong>
+                    </p>
+
+                    <!-- for editing transfer room id and take to create form -->
+                    <div class="d-flex justify-content-between">
+                        <a href="{% url 'update-room' room.id %}" class="btn" style="background-color: #7ab37c; color: #fff; border-radius: 5px; padding: 8px 16px; text-decoration: none; font-size: 16px;">
+                            Edit
+                        </a>
+
+
+                        <!-- to dele take to delete sure or delete.html and also take pk in url -->
+                        <a href="{% url 'delete-room' room.id %}" class="btn" style="background-color: #357137; color: #fff; border-radius: 5px; padding: 8px 16px; text-decoration: none; font-size: 16px;">
+                            Delete
+                        </a>
+                    </div>
+                </div>
             </div>
-            <hr>
-
         {% endfor %}
     </div>
-
-
 {% endblock content %}
